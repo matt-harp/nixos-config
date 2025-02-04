@@ -3,6 +3,8 @@
 {
   imports = [
     ../../home/core.nix
+
+    ../../home/programs/nvim.nix
   ];
 
   programs.git = {
