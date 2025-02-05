@@ -4,7 +4,7 @@
   imports = [
     ../../home/core.nix
 
-    ../../home/programs/nvim.nix
+    ../../home/programs/nvim
     ../../home/gnome
   ];
 
