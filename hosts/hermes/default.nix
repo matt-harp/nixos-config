@@ -54,5 +54,8 @@
     };
   };
 
+  services.logind.lidSwitchExternalPower = "ignore";
+
+
   system.stateVersion = "24.11";
 }
