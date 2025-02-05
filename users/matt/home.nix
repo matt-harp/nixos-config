@@ -5,6 +5,7 @@
     ../../home/core.nix
 
     ../../home/programs/nvim.nix
+    ../../home/gnome
   ];
 
   programs.git = {
