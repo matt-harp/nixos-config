@@ -5,15 +5,19 @@
   users.users.${username} = {
     isNormalUser = true;
     description = username;
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "gamemode" ];
   };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   nix.gc = {
-    automatic = lib.mkDefault true;
-    dates = lib.mkDefault "weekly";
-    options = lib.mkDefault "--delete-older-than 7d";
+    automatic = true;
+    dates = "daily";
+    options = "--delete-older-than 3d";
+  };
+
+  programs.nh = {
+    enable = true;
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -72,5 +76,6 @@
     git
     neofetch
     nnn # terminal file manager
+    discord
   ];
 }
