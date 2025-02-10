@@ -58,6 +58,16 @@
       { plugin = luasnip; }
       { plugin = cmp_luasnip; }
       { plugin = nvim-autopairs; }
+      {
+        plugin = vim-tmux-navigator;
+        type = "lua";
+        config = ''
+          vim.keymap.set('n', 'C-h', ':TmuxNavigateLeft<CR>')
+          vim.keymap.set('n', 'C-j', ':TmuxNavigateDown<CR>')
+          vim.keymap.set('n', 'C-k', ':TmuxNavigateUp<CR>')
+          vim.keymap.set('n', 'C-l', ':TmuxNavigateRight<CR>')
+        '';
+      }
     ];
     extraPackages = with pkgs; [
       # For telescope
