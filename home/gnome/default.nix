@@ -6,6 +6,7 @@
       color-scheme = "prefer-dark";
       clock-format = "12h";
       clock-show-weekday = true;
+      enable-hot-corners = false;
     };
     "org/gnome/desktop/wm/preferences" = {
       button-layout = ":minimize,maximize,close";
