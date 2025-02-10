@@ -68,6 +68,20 @@
           vim.keymap.set('n', 'C-l', ':TmuxNavigateRight<CR>')
         '';
       }
+      {
+        plugin = none-ls-nvim;
+        type = "lua";
+        config = ''
+          require("plugins.linter")
+        '';
+      }
+      {
+        plugin = lualine-nvim;
+        type = "lua";
+        config = ''
+          require("lualine").setup()
+        '';
+      }
     ];
     extraPackages = with pkgs; [
       # For telescope
