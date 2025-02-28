@@ -23,7 +23,11 @@
     nixosConfigurations = {
       atlas = let
         username = "matt";
-        specialArgs = { inherit username; };
+        specialArgs = { 
+          inherit username;
+          headless = false;
+          isWSL = false;
+        };
       in
         nixpkgs.lib.nixosSystem {
           inherit specialArgs;
@@ -45,7 +49,11 @@
         };
       hermes = let
         username = "matt";
-        specialArgs = { inherit username; };
+        specialArgs = { 
+          inherit username;
+          headless = false;
+          isWSL = false;
+        };
       in
         nixpkgs.lib.nixosSystem {
           inherit specialArgs;
@@ -67,7 +75,11 @@
         };
       wsl = let
         username = "matt";
-        specialArgs = { inherit username; };
+        specialArgs = { 
+          inherit username;
+          headless = true;
+          isWSL = true;
+        };
       in
         nixpkgs.lib.nixosSystem {
           inherit specialArgs;
