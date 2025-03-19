@@ -37,6 +37,12 @@
     };
   };
 
+  programs.direnv = {
+    enable = true;
+    enableBashIntegration = true;
+    nix-direnv.enable = true;
+  };
+
   # alacritty - a cross-platform, GPU-accelerated terminal emulator
   programs.alacritty = lib.mkIf (!headless) {
     enable = true;
