@@ -1,2 +1,2 @@
 # System config
-using NixOS :thumbsup:
+i use nix btw

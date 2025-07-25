@@ -1,7 +1,7 @@
-{ pkgs, headless, lib, ... }:
+{ pkgs, ... }:
 
 {
-  dconf.settings = lib.mkIf (!headless) {
+  dconf.settings = {
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
       clock-format = "12h";

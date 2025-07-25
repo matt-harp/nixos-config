@@ -1,12 +1,5 @@
-{ pkgs, lib, ... }:
-
+{ pkgs, ... }:
 {
-  programs.dconf.enable = true;
-
-  services.xserver.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-
   environment.gnome.excludePackages = with pkgs; [
     # baobab      # disk usage analyzer
     cheese      # photo booth
@@ -36,11 +29,6 @@
     # gnome-system-monitor
     gnome-weather
     # gnome-disk-utility
-    pkgs.gnome-connections
+    gnome-connections
   ];
-
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
 }
