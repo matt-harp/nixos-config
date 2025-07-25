@@ -76,6 +76,5 @@
     git
     neofetch
     nnn # terminal file manager
-    discord
   ];
 }
