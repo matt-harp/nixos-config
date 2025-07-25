@@ -29,7 +29,7 @@
         plugin = catppuccin-nvim;
         type = "lua";
         config = ''
-          vim.cmd.colorscheme "catppuccin"
+          require("plugins.theme")
         '';
       }
       {
@@ -48,16 +48,16 @@
         '';
       }
       {
-        plugin = nvim-cmp;
+        plugin = blink-cmp;
         type = "lua";
         config = ''
           require("plugins.completion")
         '';
       }
-      { plugin = cmp-nvim-lsp; }
-      { plugin = luasnip; }
-      { plugin = cmp_luasnip; }
-      { plugin = nvim-autopairs; }
+      # { plugin = cmp-nvim-lsp; }
+      # { plugin = luasnip; }
+      # { plugin = cmp_luasnip; }
+      # { plugin = nvim-autopairs; }
       {
         plugin = vim-tmux-navigator;
         type = "lua";
