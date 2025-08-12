@@ -5,6 +5,7 @@
     ./font.nix
     ./gnome.nix
     ./hardware.nix
+    ./jetbrains.nix
     ./network.nix
     ./nh.nix
     ./pipewire.nix
