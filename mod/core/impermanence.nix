@@ -10,14 +10,11 @@
     ];
   };
 
-  boot.initrd.systemd.services.rollback = {
-    description = "Rollback BTRFS root subvolume to a pristine state";
-    wantedBy = ["initrd.target"];
-    # mount the root fs before clearing
-    before = ["sysroot.mount"];
-    unitConfig.DefaultDependencies = "no";
-    serviceConfig.Type = "oneshot";
-    script = ''
+  boot.initrd = {
+    enable = true;
+    supportedFilesystems = [ "btrfs" ];
+
+    postResumeCommands = lib.mkAfter ''
       mkdir -p /mnt
 
       # We first mount the btrfs root to /mnt
@@ -43,4 +40,9 @@
       umount /mnt
     '';
   };
+
+  security.sudo.extraConfig = ''
+    # rollback results in sudo lectures after each reboot
+    Defaults lecture = never
+  '';
 }
