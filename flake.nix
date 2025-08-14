@@ -8,11 +8,20 @@
       url = "github:nix-community/home-manager/";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    impermanence = {
+      url = "github:Nix-community/impermanence";
+    };
   };
 
   outputs = inputs @ { 
-    nixpkgs, 
-    self,  
+    nixpkgs,
+    self,
     ... 
   }:
   let

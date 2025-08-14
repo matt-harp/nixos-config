@@ -12,7 +12,10 @@
     useGlobalPkgs = true;
     extraSpecialArgs = { inherit inputs username host; };
     users.${username} = {
-      imports = [ ../../home ];
+      imports = [ 
+        inputs.impermanence.homeManagerModules.impermanence
+        ../../home
+      ];
       home.username = "${username}";
       home.homeDirectory = "/home/${username}";
       home.stateVersion = "25.11";
