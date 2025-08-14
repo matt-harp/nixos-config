@@ -11,5 +11,5 @@
     ];
     files = [];
     allowOther = true;
-  }
+  };
 }
