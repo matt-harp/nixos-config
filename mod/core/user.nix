@@ -25,7 +25,6 @@
 
   users.users.${username} = {
     isNormalUser = true;
-    initialPassword = "";
     hashedPasswordFile = "/persist/passwords/${username}";
     description = "${username}";
     extraGroups = [
