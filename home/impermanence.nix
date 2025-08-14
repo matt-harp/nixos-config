@@ -7,6 +7,7 @@
       "Pictures"
       "Documents"
       "Videos"
+      "nixos-config"
     ];
     files = [];
     allowOther = true;
