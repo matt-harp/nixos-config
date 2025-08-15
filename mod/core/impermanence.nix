@@ -1,48 +1,86 @@
-{ inputs, lib, ... }:
+{ 
+  inputs,
+  config,
+  lib,
+  username,
+  ...
+}:
 {
   imports = [ inputs.impermanence.nixosModules.impermanence ];
 
-  environment.persistence."/persist" = {
-    hideMounts = true;
-    directories = [
-      "/var/lib/bluetooth"
-      "/var/lib/nixos"
-    ];
+  options = {
+    user.persist = {
+      files = lib.mkOption {
+        description = "Additional User Files to Preserve";
+        type = lib.types.listOf lib.types.str;
+        default = [ ];
+        example = [ ".bash_history" ];
+      };
+
+      directories = lib.mkOption {
+        description = "Additional User Directories to Preserve";
+        type = lib.types.listOf (lib.types.either lib.types.str lib.types.attrs);
+        default = [ ];
+        example = [ "Downloads" ];
+      };
+    };
   };
 
-  boot.initrd = {
-    enable = true;
-    supportedFilesystems = [ "btrfs" ];
+  config = {
+    environment.persistence."/persist" = {
+      hideMounts = true;
+      directories = [
+        "/var/lib/bluetooth"
+        "/var/lib/nixos"
+      ];
 
-    postResumeCommands = lib.mkAfter ''
-      mkdir -p /mnt
+      users.${username} = {
+        directories = [
+          "Downloads"
+          "Music"
+          "Pictures"
+          "Documents"
+          "Videos"
+          "nixos-config"
+        ]
+        ++ config.user.persist.directories;
+      };
+    };
 
-      # We first mount the btrfs root to /mnt
-      # so we can manipulate btrfs subvolumes.
-      mount -o subvol=/ /dev/disk/by-label/nixos /mnt
+    boot.initrd = {
+      enable = true;
+      supportedFilesystems = [ "btrfs" ];
 
-      # Delete all subvolumes under /root (deepest first)
-      btrfs subvolume list -o /mnt/root |
-        awk '{print $NF}' |
-        tac |
-        while read subvolume; do
-          echo "Deleting /$subvolume..."
-          btrfs subvolume delete "/mnt/$subvolume"
-        done &&
-        echo "deleting /root subvolume..." &&
-        btrfs subvolume delete /mnt/root
+      postResumeCommands = lib.mkAfter ''
+        mkdir -p /mnt
 
-      echo "Restoring blank /root..."
-      btrfs subvolume snapshot /mnt/root-blank /mnt/root
+        # We first mount the btrfs root to /mnt
+        # so we can manipulate btrfs subvolumes.
+        mount -o subvol=/ /dev/disk/by-label/nixos /mnt
 
-      # Once we're done rolling back to a blank snapshot,
-      # we can unmount /mnt and continue on the boot process.
-      umount /mnt
+        # Delete all subvolumes under /root (deepest first)
+        btrfs subvolume list -o /mnt/root |
+          awk '{print $NF}' |
+          tac |
+          while read subvolume; do
+            echo "Deleting /$subvolume..."
+            btrfs subvolume delete "/mnt/$subvolume"
+          done &&
+          echo "deleting /root subvolume..." &&
+          btrfs subvolume delete /mnt/root
+
+        echo "Restoring blank /root..."
+        btrfs subvolume snapshot /mnt/root-blank /mnt/root
+
+        # Once we're done rolling back to a blank snapshot,
+        # we can unmount /mnt and continue on the boot process.
+        umount /mnt
+      '';
+    };
+
+    security.sudo.extraConfig = ''
+      # rollback results in sudo lectures after each reboot
+      Defaults lecture = never
     '';
   };
-
-  security.sudo.extraConfig = ''
-    # rollback results in sudo lectures after each reboot
-    Defaults lecture = never
-  '';
 }
