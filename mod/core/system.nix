@@ -17,7 +17,33 @@
   };
   nixpkgs = {
     config.allowUnfree = true;
-    overlays = [  ];
+    overlays = [
+      # (final: prev: {
+      #   bash = prev.bash.overrideAttrs (oldAttrs: {
+      #     src = prev.fetchurl {
+      #       url = oldAttrs.src.url;
+      #       hash = "sha256-DVzYaWX4aaJs9k9Lcb57lvkKO6iz104n6OnZ1VUPMbo=";
+      #     };
+      #   });
+      # })
+      # (self: super: let
+      #   gnuConfig = builtins.fetchGit {
+      #     url = "git://git.savannah.gnu.org/config.git";
+      #     rev = "948ae97ca5703224bd3eada06b7a69f40dd15a02";
+      #     allRefs = true;
+      #   };
+      # in {
+      #   gnu-config = super.gnu-config.overrideAttrs {
+      #     unpackPhase = ''
+      #       runHook preUnpack
+      #       cp ${gnuConfig}/config.guess ./config.guess
+      #       cp ${gnuConfig}/config.sub ./config.sub
+      #       chmod +w ./config.sub ./config.guess
+      #       runHook postUnpack
+      #     '';
+      #   };
+      # })
+    ];
   };
 
   environment.systemPackages = with pkgs; [
