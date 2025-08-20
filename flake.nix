@@ -21,6 +21,11 @@
     systems = {
       url = "github:nix-systems/x86_64-linux";
     };
+
+    nixcord = {
+      url = "github:kaylorben/nixcord";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ { 
@@ -31,11 +36,6 @@
   let
     username = "matt";
     system = "x86_64-linux";
-    pkgs = import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-    };
-    lib = nixpkgs.lib;
   in
   {
     nixosConfigurations = {

@@ -1,7 +1,6 @@
 {
   imports = [
     ./nvim
-    ./bash.nix
     ./direnv.nix
     ./ghostty.nix
     ./git.nix
