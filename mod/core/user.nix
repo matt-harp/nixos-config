@@ -7,14 +7,21 @@
   host,
   ...
 }:
+let
+  inherit (builtins) attrValues;
+  mergedAttrs = lib.mkOptionType {
+    name = "mergedAttrs";
+    merge = _: lib.getValues;
+  };
+in
 {
   imports = [ inputs.home-manager.nixosModules.home-manager ];
 
   options = {
     user = {
       homeConfig = lib.mkOption {
-        description = "Shared User Home Configuration";
-        type = lib.types.attrs;
+        description = "Home Manager Configuration";
+        type = mergedAttrs ;
         default = { };
       };
     };
@@ -28,12 +35,12 @@
       users.${username} = {
         imports = [
           ../../home
-        ];
+        ] ++ config.user.homeConfig;
         home.username = "${username}";
         home.homeDirectory = "/home/${username}";
         home.stateVersion = "25.11";
         programs.home-manager.enable = true;
-      } // config.user.homeConfig;
+      };
     };
 
     users.users.${username} = {

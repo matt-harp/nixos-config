@@ -21,14 +21,6 @@
     systems = {
       url = "github:nix-systems/x86_64-linux";
     };
-
-    spicetify-nix = {
-      url = "github:Gerg-L/spicetify-nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-    };
   };
 
   outputs = inputs @ { 
