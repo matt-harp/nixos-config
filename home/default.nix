@@ -7,6 +7,5 @@
     ./git.nix
     ./ssh.nix
     ./starship.nix
-    ./vscodium.nix
   ];
 }
