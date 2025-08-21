@@ -41,6 +41,7 @@
           "Pictures"
           "Documents"
           "Videos"
+          "projects"
           "nixos-config"
         ]
         ++ config.user.persist.directories;
