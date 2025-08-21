@@ -21,11 +21,6 @@
     systems = {
       url = "github:nix-systems/x86_64-linux";
     };
-
-    nixcord = {
-      url = "github:kaylorben/nixcord";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = inputs @ { 

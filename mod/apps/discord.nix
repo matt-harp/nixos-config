@@ -1,10 +1,9 @@
 {
   pkgs,
-  inputs,
   ...
 }:
 let
-  package = pkgs.vesktop;
+  package = pkgs.discord;
 in
 {
   environment.systemPackages = [
@@ -12,23 +11,6 @@ in
   ];
 
   user = {
-    persist.directories = [ ".config/vesktop" ];
-    homeConfig = {
-      imports = [ inputs.nixcord.homeModules.nixcord ];
-      programs.nixcord = {
-        enable = true;
-        discord.enable = false;
-        vesktop = {
-          enable = true;
-          inherit package;
-        };
-
-        config = {
-          plugins = {
-            fixSpotifyEmbeds.enable = true;
-          };
-        };
-      };
-    };
+    persist.directories = [ ".config/discord" ];
   };
 }
