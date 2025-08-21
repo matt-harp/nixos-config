@@ -10,7 +10,7 @@
 
     homeConfig = {
       programs.zsh = {
-        enable = true;
+        # enable = true;
 
         # enableAutosuggestions = true;
         # enableCompletion = false;
