@@ -22,6 +22,9 @@
         "org/gnome/mutter" = {
           edge-tiling = true;
         };
+        "org/gnome/shell" = {
+          welcome-dialog-last-shown-version = "999"; # prevent popup until gnome version 999 :)
+        };
       };
     };
   };
@@ -37,7 +40,7 @@
     # evince      # document viewer
     # file-roller # archive manager
     geary       # email client
-    seahorse    # password manager
+    # seahorse    # password manager
 
     # these should be self explanatory
     # gnome-calculator
