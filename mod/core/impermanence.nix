@@ -45,6 +45,8 @@
           "nixos-config"
         ]
         ++ config.user.persist.directories;
+
+        files = [] ++ config.user.persist.files;
       };
     };
 
@@ -72,6 +74,11 @@
 
         echo "Restoring blank /root..."
         btrfs subvolume snapshot /mnt/root-blank /mnt/root
+
+        # for whatever reason I can't figure out this needs to be remade.
+        # just dont put anything in /root for now
+        rmdir /mnt/root/root
+        mkdir /mnt/root/root
 
         # Once we're done rolling back to a blank snapshot,
         # we can unmount /mnt and continue on the boot process.
