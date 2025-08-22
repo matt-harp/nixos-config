@@ -1,10 +1,10 @@
-{ 
-  inputs,
+{
   pkgs,
   ...
 }:
 {
   environment.systemPackages = with pkgs; [
+    spot
     spotify
   ];
 
@@ -12,6 +12,7 @@
     persist.directories = [
       ".config/spotify"
       ".cache/spotify"
+      ".cache/spot"
     ];
   };
 }
