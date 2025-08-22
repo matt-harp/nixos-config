@@ -7,5 +7,5 @@
     slack
   ];
 
-  user.persist.directories = [];
+  user.persist.directories = [ ".config/Slack" ];
 }
