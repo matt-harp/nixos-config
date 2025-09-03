@@ -59,6 +59,27 @@
           };
         };
       };
+      data = {
+        device = "/dev/disk/by-id/wwn-0x500a0751e2083692";
+        type = "disk";
+        content = {
+          type = "gpt";
+          partitions = {
+            data = {
+              size = "100%";
+              content = {
+                type = "btrfs";
+                subvolumes = {
+                  "/games" = {
+                    mountpoint = "/home/matt/games";
+                    mountOptions = ["subvol=games" "compress=zstd" "noatime"];
+                  };
+                };
+              };
+            };
+          };
+        };
+      };
     };
   };
 

@@ -32,6 +32,10 @@
       directories = [
         "/var/lib/bluetooth"
         "/var/lib/nixos"
+        "/var/lib/private/ollama" # todo move to ollama module
+      ];
+      files = [
+        "/etc/machine-id"
       ];
 
       users.${username} = {

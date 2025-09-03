@@ -9,6 +9,7 @@
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-emoji
+      inter
 
       # nerdfonts
       nerd-fonts.fira-code
@@ -23,7 +24,7 @@
     # B&W emojis that would sometimes show instead of some Color emojis
     fontconfig.defaultFonts = {
       serif = ["Noto Serif" "Noto Color Emoji"];
-      sansSerif = ["Noto Sans" "Noto Color Emoji"];
+      sansSerif = ["Inter" "Noto Sans" "Noto Color Emoji"];
       monospace = ["JetBrainsMono Nerd Font" "Noto Color Emoji"];
       emoji = ["Noto Color Emoji"];
     };

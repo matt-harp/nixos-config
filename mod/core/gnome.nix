@@ -24,6 +24,7 @@
         };
         "org/gnome/shell" = {
           welcome-dialog-last-shown-version = "999"; # prevent popup until gnome version 999 :)
+          favorite-apps = [ "org.gnome.Nautilus.desktop" "firefox.desktop" "discord.desktop" "steam.desktop" "codium.desktop" ];
         };
       };
     };

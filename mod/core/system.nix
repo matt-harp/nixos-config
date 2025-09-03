@@ -49,6 +49,7 @@
   environment.systemPackages = with pkgs; [
     wget
     git
+    nixfmt-rfc-style
   ];
 
   time.timeZone = "America/Denver";
