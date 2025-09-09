@@ -8,10 +8,6 @@
   ];
 
   user.persist = {
-    # files = [
-    #   ".config/zoom.conf"
-    #   ".config/zoomus.conf"
-    # ];
     directories = [
       ".cache/zoom"
     ];
