@@ -8,6 +8,7 @@
     ./ollama.nix
     ./slack.nix
     ./spotify.nix
+    ./teams.nix
     ./vscode.nix
     ./zoom.nix
   ];
