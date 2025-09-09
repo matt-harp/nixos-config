@@ -4,6 +4,7 @@
     xserver = {
       enable = true;
       xkb.layout = "us";
+      videoDrivers = [ "amdgpu" ];
     };
 
     displayManager.autoLogin = {
