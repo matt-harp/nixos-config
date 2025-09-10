@@ -1,15 +1,24 @@
 {
+  config,
+  lib,
   pkgs,
   ...
 }:
+let
+  cfg = config.apps.teams;
+in
 {
-  environment.systemPackages = with pkgs; [
-    teams-for-linux
-  ];
+  options.apps.teams = {
+    enable = lib.mkEnableOption "Microsoft Teams";
+  };
 
-  user.persist = {
-    directories = [
+  config = lib.mkIf cfg.enable {
+    user.persist.directories = [
       ".config/teams-for-linux"
+    ];
+
+    environment.systemPackages = with pkgs; [
+      teams-for-linux
     ];
   };
 }

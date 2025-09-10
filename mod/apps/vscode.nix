@@ -1,33 +1,44 @@
 {
+  config,
+  lib,
   pkgs,
   ...
 }:
 let
-  package = pkgs.vscodium;
+  cfg = config.apps.vscode;
 in
 {
-  environment.systemPackages = [
-    package
-    pkgs.nil # Nix lanugage server
-  ];
+  options.apps.vscode = {
+    enable = lib.mkEnableOption "VSCodium";
+  };
 
-  user = {
-    persist.directories = [
-      ".config/VSCodium"
-      ".vscode-oss"
+  config = lib.mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [
+      vscode
+      nil # Nix lanugage server
     ];
 
-    homeConfig = {
-      programs.vscode = {
-        enable = true;
+    user = {
+      persist.directories = [
+        ".config/VSCodium"
+        ".vscode-oss"
+        ".continue"
+      ];
 
-        inherit package;
-        profiles.default = {
-          extensions = with pkgs.vscode-extensions; [
-            editorconfig.editorconfig
+      homeConfig = {
+        programs.vscode = {
+          enable = true;
 
-            jnoortheen.nix-ide # Nix
-          ];
+          package = pkgs.vscodium;
+          profiles.default = {
+            extensions = with pkgs.vscode-extensions; [
+              editorconfig.editorconfig
+
+              jnoortheen.nix-ide # Nix
+
+              continue.continue
+            ];
+          };
         };
       };
     };

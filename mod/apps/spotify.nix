@@ -1,18 +1,28 @@
 {
+  config,
+  lib,
   pkgs,
   ...
 }:
+let
+  cfg = config.apps.spotify;
+in
 {
-  environment.systemPackages = with pkgs; [
-    spot
-    spotify
-  ];
+  options.apps.spotify = {
+    enable = lib.mkEnableOption "Spotify Client";
+  };
 
-  user = {
-    persist.directories = [
-      ".config/spotify"
-      ".cache/spotify"
-      ".cache/spot"
+  config = lib.mkIf cfg.enable {
+    user = {
+      persist.directories = [
+        ".config/spotify"
+        ".cache/spotify"
+        ".cache/spot"
+      ];
+    };
+
+    environment.systemPackages = with pkgs; [
+      spotify
     ];
   };
 }

@@ -1,11 +1,22 @@
 {
+  config,
+  lib,
   pkgs,
   ...
 }:
+let
+  cfg = config.apps.slack;
+in
 {
-  environment.systemPackages = with pkgs; [
-    slack
-  ];
+  options.apps.slack = {
+    enable = lib.mkEnableOption "Slack";
+  };
 
-  user.persist.directories = [ ".config/Slack" ];
+  config = lib.mkIf cfg.enable {
+    user.persist.directories = [ ".config/Slack" ];
+
+    environment.systemPackages = with pkgs; [
+      slack
+    ];
+  };
 }

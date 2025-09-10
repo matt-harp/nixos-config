@@ -1,14 +1,26 @@
 {
-  user.persist.directories = [ ".ollama/models" ];
+  config,
+  lib,
+  ...
+}:
+let
+  cfg = config.apps.ollama;
+in
+{
+  options.apps.ollama = {
+    enable = lib.mkEnableOption "ollama";
+  };
 
-  services.ollama = {
-    enable = true;
-    acceleration = "rocm";
-    rocmOverrideGfx = "12.0.1";
-    environmentVariables = {
-      HCC_AMDGPU_TARGET = "gfx1201";
+  config = lib.mkIf cfg.enable {
+    user.persist.directories = [ ".ollama/models" ];
+
+    services.ollama = {
+      enable = true;
+      acceleration = "rocm";
+      rocmOverrideGfx = "12.0.1"; # todo make an option
+      environmentVariables = {
+        HCC_AMDGPU_TARGET = "gfx1201";
+      };
     };
-
-    loadModels = [ "llama3.1:8b" ];
   };
 }

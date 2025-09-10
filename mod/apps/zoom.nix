@@ -1,15 +1,23 @@
 {
-  pkgs,
+  config,
+  lib,
   ...
 }:
+let
+  cfg = config.apps.zoom;
+in
 {
-  environment.systemPackages = with pkgs; [
-    zoom-us
-  ];
+  options.apps.zoom = {
+    enable = lib.mkEnableOption "Zoom Client";
+  };
 
-  user.persist = {
-    directories = [
-      ".cache/zoom"
-    ];
+  config = lib.mkIf cfg.enable {
+    user.persist = {
+      directories = [
+        ".cache/zoom"
+      ];
+    };
+
+    programs.zoom-us.enable = true;
   };
 }

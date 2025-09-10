@@ -1,16 +1,22 @@
 {
+  config,
+  lib,
   pkgs,
   ...
 }:
 let
-  package = pkgs.discord;
+  cfg = config.apps.discord;
 in
 {
-  environment.systemPackages = [
-    package
-  ];
+  options.apps.discord = {
+    enable = lib.mkEnableOption "Discord Client";
+  };
 
-  user = {
-    persist.directories = [ ".config/discord" ];
+  config = lib.mkIf cfg.enable {
+    user.persist.directories = [ ".config/discord" ];
+
+    environment.systemPackages = [
+      pkgs.discord
+    ];
   };
 }
