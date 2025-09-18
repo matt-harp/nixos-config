@@ -15,6 +15,7 @@ in
     user.persist = {
       directories = [
         ".cache/zoom"
+        ".zoom"
       ];
     };
 
