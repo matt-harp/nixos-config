@@ -18,6 +18,7 @@
   nixpkgs = {
     config.allowUnfree = true;
     overlays = [
+      inputs.nix-vscode-extensions.overlays.default
       # (final: prev: {
       #   bash = prev.bash.overrideAttrs (oldAttrs: {
       #     src = prev.fetchurl {

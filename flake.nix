@@ -21,6 +21,8 @@
     systems = {
       url = "github:nix-systems/x86_64-linux";
     };
+
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
   };
 
   outputs = inputs @ { 
