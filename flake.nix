@@ -23,35 +23,42 @@
     };
 
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+
+    nvf = {
+      url = "github:notashelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.systems.follows = "systems";
+    };
   };
 
-  outputs = inputs @ { 
-    nixpkgs,
-    self,
-    ... 
-  }:
-  let
-    username = "matt";
-    system = "x86_64-linux";
-  in
-  {
-    nixosConfigurations = {
-      atlas = nixpkgs.lib.nixosSystem {
-        inherit system;
-        modules = [ ./hosts/atlas ];
-        specialArgs = {
-          host = "atlas";
-          inherit self inputs username;
+  outputs =
+    inputs@{
+      nixpkgs,
+      self,
+      ...
+    }:
+    let
+      username = "matt";
+      system = "x86_64-linux";
+    in
+    {
+      nixosConfigurations = {
+        atlas = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [ ./hosts/atlas ];
+          specialArgs = {
+            host = "atlas";
+            inherit self inputs username;
+          };
         };
-      };
-      hermes = nixpkgs.lib.nixosSystem {
-        inherit system;
-        modules = [ ./hosts/hermes ];
-        specialArgs = {
-          host = "hermes";
-          inherit self inputs username;
+        hermes = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [ ./hosts/hermes ];
+          specialArgs = {
+            host = "hermes";
+            inherit self inputs username;
+          };
         };
       };
     };
-  };
 }

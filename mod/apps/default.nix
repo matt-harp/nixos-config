@@ -9,6 +9,7 @@
     ./slack.nix
     ./spotify.nix
     ./teams.nix
+    ./vim.nix
     ./vscode.nix
     ./zoom.nix
   ];
