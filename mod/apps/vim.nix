@@ -32,8 +32,24 @@ in
           telescope.enable = true;
           autocomplete.nvim-cmp.enable = true;
 
+          binds = {
+            whichKey.enable = true;
+          };
+
+          utility = {
+            sleuth.enable = true;
+            direnv.enable = true;
+          };
+
+          filetree = {
+            neo-tree.enable = true;
+          };
+
           lsp = {
             enable = true;
+            formatOnSave = true;
+            inlayHints.enable = true;
+            lightbulb.enable = true;
           };
 
           languages = {
@@ -42,6 +58,7 @@ in
             nix.enable = true;
             ts.enable = true;
             rust.enable = true;
+            clang.enable = true;
           };
         };
       };
