@@ -17,13 +17,14 @@
       discord.enable = true;
       firefox.enable = true;
       godot.enable = true;
+      helix.enable = true;
       ollama.enable = true;
       slack.enable = true;
       spotify.enable = true;
       teams.enable = true;
       vim.enable = true;
       vscode.enable = true;
-      zoom.enable = true;
+      zoom.enable = false;
     };
     tools = {
       direnv.enable = true;
