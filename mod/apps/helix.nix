@@ -22,7 +22,7 @@ in
           enable = true;
 
           settings = {
-            theme = "catpuccin-mocha";
+            theme = "catppuccin_mocha";
             editor.cursor-shape = {
               normal = "block";
               insert = "bar";
