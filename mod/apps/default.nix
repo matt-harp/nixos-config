@@ -11,6 +11,7 @@
     ./slack.nix
     ./spotify.nix
     ./teams.nix
+    ./tidal.nix
     ./vim.nix
     ./vscode.nix
     ./zoom.nix

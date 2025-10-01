@@ -23,6 +23,7 @@
       slack.enable = true;
       spotify.enable = true;
       teams.enable = true;
+      tidal.enable = true;
       vim.enable = true;
       vscode.enable = true;
       zoom.enable = false;
