@@ -1,7 +1,14 @@
 { pkgs, ... }:
 {
+  user.persist.directories = [
+    ".config/easyeffects"
+    ".local/state/wireplumber"
+  ];
   # hardware.alsa.enablePersistence = true;
-  # environment.systemPackages = with pkgs; [ pulseaudioFull ];
+  environment.systemPackages = with pkgs; [
+    easyeffects
+    pavucontrol
+  ];
 
   # Enable sound with pipewire.
   security.rtkit.enable = true;
@@ -23,6 +30,34 @@
           }
         '')
       ];
+      extraConfig = {
+        "disable-hdmi" = {
+          "monitor.alsa.rules" = [
+            {
+              matches = [
+                {
+                  "device.name" = "alsa_card.pci-0000_28_00.1";
+                }
+              ];
+              actions = {
+                update-props = {
+                  "device.disabled" = true;
+                };
+              };
+            }
+          ];
+        };
+      };
+    };
+  };
+
+  systemd.user.services.easyeffects = {
+    description = "EasyEffects daemon";
+    wantedBy = [ "graphical-session.target" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.easyeffects}/bin/easyeffects --gapplication-service --load-preset Default";
+      Restart = "on-failure";
+      RestartSec = 5;
     };
   };
 }
