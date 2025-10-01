@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   username,
   ...
 }:
@@ -22,6 +23,18 @@ in
       _1password-gui = {
         enable = true;
         polkitPolicyOwners = [ username ];
+      };
+    };
+
+    systemd.user.services.onepassword = {
+      description = "1Password daemon";
+      wantedBy = [ "graphical-session.target" ];
+      serviceConfig = {
+        ExecStart = "${pkgs._1password-gui}/bin/1password --silent";
+        Restart = "on-abnormal";
+        RestartSec = 5;
+        OOMPolicy = "continue";
+        KeyringMode = "inherit";
       };
     };
   };
