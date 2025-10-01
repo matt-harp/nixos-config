@@ -7,6 +7,7 @@
     ./godot.nix
     ./helix.nix
     ./ollama.nix
+    ./qmk.nix
     ./slack.nix
     ./spotify.nix
     ./teams.nix

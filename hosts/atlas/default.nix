@@ -19,6 +19,7 @@
       godot.enable = true;
       helix.enable = true;
       ollama.enable = true;
+      qmk.enable = true;
       slack.enable = true;
       spotify.enable = true;
       teams.enable = true;
