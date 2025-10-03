@@ -55,7 +55,7 @@
     description = "EasyEffects daemon";
     wantedBy = [ "graphical-session.target" ];
     serviceConfig = {
-      ExecStart = "${pkgs.easyeffects}/bin/easyeffects --gapplication-service --load-preset Default";
+      ExecStart = "${pkgs.easyeffects}/bin/easyeffects --gapplication-service";
       Restart = "on-failure";
       RestartSec = 5;
     };
