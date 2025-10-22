@@ -1,4 +1,4 @@
-{ 
+{
   inputs,
   config,
   lib,
@@ -6,7 +6,7 @@
   ...
 }:
 {
-  imports = [ inputs.impermanence.nixosModules.impermanence ];
+  imports = [ inputs.impermanence.nixosModules.impermanence ]; # conditional imports are a bad idea
 
   options = {
     user.persist = {
@@ -50,7 +50,7 @@
         ]
         ++ config.user.persist.directories;
 
-        files = [] ++ config.user.persist.files;
+        files = [ ] ++ config.user.persist.files;
       };
     };
 
