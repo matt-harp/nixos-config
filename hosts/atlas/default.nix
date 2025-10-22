@@ -18,6 +18,7 @@
       firefox.enable = true;
       godot.enable = true;
       helix.enable = true;
+      lutris.enable = true;
       ollama.enable = true;
       qmk.enable = true;
       slack.enable = true;
