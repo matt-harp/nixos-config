@@ -1,5 +1,8 @@
-{ username, ... }:
+{ username, pkgs, ... }:
 {
+  environment.systemPackages = with pkgs; [
+    xwayland-satellite
+  ]; # todo move to niri
   services = {
     xserver = {
       enable = true;
@@ -7,11 +10,8 @@
       videoDrivers = [ "amdgpu" ];
     };
 
-    displayManager.autoLogin = {
-      enable = false;
-      user = "${username}";
-    };
     displayManager.gdm.enable = true;
+    # displayManager.sddm.wayland.enable = true;
     desktopManager.gnome.enable = true;
   };
   # To prevent getting stuck at shutdown

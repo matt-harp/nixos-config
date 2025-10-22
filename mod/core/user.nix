@@ -17,17 +17,22 @@ in
 {
   imports = [ inputs.home-manager.nixosModules.home-manager ];
 
-  options = {
-    user = {
-      homeConfig = lib.mkOption {
-        description = "Home Manager Configuration";
-        type = mergedAttrs ;
-        default = { };
-      };
+  options.user.homeConfig = lib.mkOption {
+    description = "Alias for `home-manager.users.\${username}`";
+    type = lib.mkOptionType {
+      name = "home-manager module";
+      check = _: true;
+      merge =
+        loc:
+        map (def: {
+          _file = def.file;
+          imports = [ def.value ];
+        });
     };
   };
-  
+
   config = {
+    programs.niri.enable = true; # TODO move from here!!!
     home-manager = {
       useUserPackages = true;
       useGlobalPkgs = true;
@@ -36,7 +41,8 @@ in
       users.${username} = {
         imports = [
           ../../home
-        ] ++ config.user.homeConfig;
+        ]
+        ++ config.user.homeConfig;
         home.username = "${username}";
         home.homeDirectory = "/home/${username}";
         home.stateVersion = "25.11";
