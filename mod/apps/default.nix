@@ -1,19 +1,11 @@
+{ lib, ... }:
+let
+  files = builtins.attrNames (builtins.readDir ./.);
+
+  nixFiles = builtins.filter (name: lib.hasSuffix ".nix" name && name != "default.nix") files;
+
+  imports = map (name: ./. + "/${name}") nixFiles;
+in
 {
-  imports = [
-    ./1password.nix
-    ./discord.nix
-    ./direnv.nix
-    ./firefox.nix
-    ./godot.nix
-    ./helix.nix
-    ./ollama.nix
-    ./qmk.nix
-    ./slack.nix
-    ./spotify.nix
-    ./teams.nix
-    ./tidal.nix
-    ./vim.nix
-    ./vscode.nix
-    ./zoom.nix
-  ];
+  inherit imports;
 }
