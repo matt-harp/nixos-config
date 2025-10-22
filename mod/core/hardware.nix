@@ -22,13 +22,14 @@
 
       # rocm clr drivers
       opencl.enable = true;
-
-      # additional Vulkan drivers for AMD
-      amdvlk.enable = true;
     };
   };
 
-  environment.variables = {
-    VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/amd_icd64.json";
-  };
+  # environment.variables = {
+  #   VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/amd_icd64.json";
+  # };
+
+  environment.systemPackages = with pkgs; [
+    vulkan-tools
+  ];
 }
