@@ -1,7 +1,10 @@
 { pkgs, ... }:
 
 {
-  user.persist.directories = [ ".steam" ".local/share/Steam" ];
+  user.persist.directories = [
+    ".steam"
+    ".local/share/Steam"
+  ];
 
   programs.steam = {
     enable = true;
@@ -12,7 +15,7 @@
 
   environment.systemPackages = with pkgs; [
     mangohud
+    protonup-qt
   ];
   programs.gamemode.enable = true;
 }
-
