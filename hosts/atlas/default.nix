@@ -24,11 +24,13 @@
       slack.enable = true;
       spotify.enable = true;
       teams.enable = true;
-      tidal.enable = true;
+      tidal.enable = false; #TODO BLOW AWAY
       vim.enable = true;
       vscode.enable = true;
+      zed.enable = true;
       zoom.enable = false;
     };
+    system.impermanent = true;
     tools = {
       direnv.enable = true;
     };

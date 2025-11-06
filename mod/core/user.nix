@@ -52,7 +52,6 @@ in
 
     users.users.${username} = {
       isNormalUser = true;
-      hashedPasswordFile = "/persist/passwords/${username}";
       description = "${username}";
       extraGroups = [
         "networkmanager"
@@ -61,9 +60,6 @@ in
       shell = pkgs.bash;
     };
 
-    users.users.root = {
-      hashedPasswordFile = "/persist/passwords/root";
-    };
     nix.settings.allowed-users = [ "${username}" ];
   };
 }

@@ -9,6 +9,7 @@
   imports = [ inputs.impermanence.nixosModules.impermanence ]; # conditional imports are a bad idea
 
   options = {
+    system.impermanent = lib.mkEnableOption "Impermanence";
     user.persist = {
       files = lib.mkOption {
         description = "Additional User Files to Preserve";
@@ -26,7 +27,7 @@
     };
   };
 
-  config = {
+  config = lib.mkIf config.system.impermanent {
     environment.persistence."/persist" = {
       hideMounts = true;
       directories = [
@@ -53,6 +54,9 @@
         files = [ ] ++ config.user.persist.files;
       };
     };
+
+    users.users.${username}.hashedPasswordFile = "/persist/passwords/${username}";
+    users.users.root.hashedPasswordFile = "/persist/passwords/root";
 
     boot.initrd = {
       enable = true;
