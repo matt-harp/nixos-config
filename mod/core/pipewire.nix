@@ -2,6 +2,7 @@
 {
   user.persist.directories = [
     ".config/easyeffects"
+    ".local/share/easyeffects"
     ".local/state/wireplumber"
   ];
   # hardware.alsa.enablePersistence = true;

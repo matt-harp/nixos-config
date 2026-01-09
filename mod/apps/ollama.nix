@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 let
@@ -16,7 +17,7 @@ in
 
     services.ollama = {
       enable = true;
-      acceleration = "rocm";
+      package = pkgs.ollama-rocm;
       rocmOverrideGfx = "12.0.1"; # todo make an option
       environmentVariables = {
         HCC_AMDGPU_TARGET = "gfx1201";

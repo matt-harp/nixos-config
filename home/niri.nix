@@ -27,18 +27,18 @@
           sh = spawn "sh" "-c";
         in
         {
-          "XF86AudioPlay".action = sh "playerctl play-pause";
-          "XF86AudioNext".action = sh "playerctl next";
-          "XF86AudioPrev".action = sh "playerctl previous";
+          "XF86AudioPlay".action = sh "playerctl -p spotify play-pause";
+          "XF86AudioNext".action = sh "playerctl -p spotify next";
+          "XF86AudioPrev".action = sh "playerctl -p spotify previous";
           "XF86AudioMute".action = sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
           "Shift+XF86AudioMute".action = sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
 
-          "Mod+Shift+S".action = screenshot;
-          "Print".action.screenshot-screen = [ ];
-          "Mod+Print".action = screenshot-window;
+          "Mod+Shift+S".action = sh "niri msg action screenshot";
+          "Print".action = sh "niri msg action screenshot-screen";
+          "Mod+Print".action = sh "niri msg action screenshot-window";
 
           "Mod+T".action = spawn "kitty";
-          "Mod+D".action = spawn "fuzzel";
+          "Mod+Space".action = spawn "fuzzel";
 
           "Mod+Shift+E".action = quit;
           "Mod+Q".action = close-window;

@@ -35,27 +35,10 @@ with lib;
           "clock"
         ];
 
-        "hyprland/workspaces" = {
-          format = "{name}";
-          format-icons = {
-            default = " ";
-            active = " ";
-            urgent = " ";
-          };
-          on-scroll-up = "hyprctl dispatch workspace e+1";
-          on-scroll-down = "hyprctl dispatch workspace e-1";
-        };
         "clock" = {
           format = '' {:L%H:%M}'';
           tooltip = true;
-          tooltip-format = "<big>{:%A, %d.%B %Y }</big>\n<tt><small>{calendar}</small></tt>";
-        };
-        "hyprland/window" = {
-          max-length = 22;
-          separate-outputs = false;
-          rewrite = {
-            "" = " 🙈 No Windows? ";
-          };
+          tooltip-format = "<big>{:%A, %d %B %Y }</big>\n<tt><small>{calendar}</small></tt>";
         };
         "memory" = {
           interval = 5;
@@ -86,6 +69,7 @@ with lib;
         };
         "tray" = {
           spacing = 12;
+          icon-size = 22;
         };
         "pulseaudio" = {
           format = "{icon} {volume}% {format_source}";
@@ -119,11 +103,6 @@ with lib;
           format = "";
           # exec = "rofi -show drun";
           on-click = "sleep 0.1 && rofi-launcher";
-        };
-        "custom/hyprbindings" = {
-          tooltip = false;
-          format = "󱕴";
-          on-click = "sleep 0.1 && list-keybinds";
         };
         "idle_inhibitor" = {
           format = "{icon}";
@@ -189,42 +168,6 @@ with lib;
         window#waybar {
           background: rgba(0,0,0,0);
         }
-        #workspaces {
-          color: #282936;
-          background: #3a3c4e;
-          margin: 4px 4px;
-          padding: 5px 5px;
-          border-radius: 16px;
-        }
-        #workspaces button {
-          font-weight: bold;
-          padding: 0px 5px;
-          margin: 0px 3px;
-          border-radius: 16px;
-          color: #282936;
-          background: linear-gradient(45deg, #ea51b2, #62d6e8);
-          opacity: 0.5;
-          transition: ${betterTransition};
-        }
-        #workspaces button.active {
-          font-weight: bold;
-          padding: 0px 5px;
-          margin: 0px 3px;
-          border-radius: 16px;
-          color: #282936;
-          background: linear-gradient(45deg, #ea51b2, #62d6e8);
-          transition: ${betterTransition};
-          opacity: 1.0;
-          min-width: 40px;
-        }
-        #workspaces button:hover {
-          font-weight: bold;
-          border-radius: 16px;
-          color: #282936;
-          background: linear-gradient(45deg, #ea51b2, #62d6e8);
-          opacity: 0.8;
-          transition: ${betterTransition};
-        }
         tooltip {
           background: #282936;
           border: 1px solid #ea51b2;
@@ -250,7 +193,7 @@ with lib;
           padding: 0px 30px 0px 15px;
           border-radius: 0px 0px 40px 0px;
         }
-        #custom-hyprbindings, #network, #battery,
+        #network, #battery,
         #custom-notification, #tray, #custom-exit {
           font-weight: bold;
           background: #00f769;
@@ -261,12 +204,11 @@ with lib;
           padding: 0px 18px;
         }
         #clock {
-          font-weight: bold;
           color: #0D0E15;
           background: linear-gradient(90deg, #b45bcf, #a1efe4);
           margin: 0px;
           padding: 0px 15px 0px 30px;
-          border-radius: 0px 0px 0px 40px;
+          border-radius: 5px 5px 5px 5px;
         }
       ''
     ];

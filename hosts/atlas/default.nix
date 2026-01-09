@@ -17,18 +17,15 @@
       discord.enable = true;
       firefox.enable = true;
       godot.enable = true;
-      helix.enable = true;
       lutris.enable = true;
       ollama.enable = true;
       qmk.enable = true;
       slack.enable = true;
       spotify.enable = true;
       teams.enable = true;
-      tidal.enable = false; #TODO BLOW AWAY
-      vim.enable = true;
-      vscode.enable = true;
       zed.enable = true;
       zoom.enable = false;
+      zoxide.enable = true;
     };
     system.impermanent = true;
     tools = {

@@ -51,6 +51,13 @@
     wget
     git
     nixfmt-rfc-style
+    # nil # nix lsp
+    nixd # nix lsp
+    ripgrep
+    fd # find replacement
+    inotify-tools # file watching
+    fzf
+    eza
   ];
 
   time.timeZone = "America/Denver";

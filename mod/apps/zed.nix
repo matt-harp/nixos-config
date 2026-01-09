@@ -16,6 +16,8 @@ in
     user = {
       persist.directories = [
         ".cache/zed"
+        ".config/zed"
+        ".local/share/zed"
       ];
 
       homeConfig = {

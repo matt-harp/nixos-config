@@ -11,8 +11,9 @@
     };
 
     displayManager.gdm.enable = true;
-    # displayManager.sddm.wayland.enable = true;
     desktopManager.gnome.enable = true;
+
+    displayManager.defaultSession = "niri";
   };
   # To prevent getting stuck at shutdown
   systemd.settings.Manager = {

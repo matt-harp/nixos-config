@@ -74,6 +74,10 @@
                     mountpoint = "/home/matt/games";
                     mountOptions = ["subvol=games" "compress=zstd" "noatime"];
                   };
+                  "/projects" = {
+                    mountpoint = "/home/matt/projects";
+                    mountOptions = ["subvol=projects" "compress=zstd" "noatime"];
+                  };
                 };
               };
             };

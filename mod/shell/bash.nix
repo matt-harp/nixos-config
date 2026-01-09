@@ -8,6 +8,12 @@
         eval "$(starship init bash)"
         eval "$(direnv hook bash)"
       '';
+      shellAliases = {
+        "cd" = "z";
+        ".." = "cd ..";
+        "find" = "fd";
+        "eza" = "ls";
+      };
     };
   };
 }
