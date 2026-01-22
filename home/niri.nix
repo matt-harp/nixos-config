@@ -154,8 +154,20 @@
 
   programs.fuzzel = {
     enable = true;
-    settings.main.launch-prefix = "niri msg action spawn --";
-    settings.main.terminal = "kitty";
+    settings = {
+      main.launch-prefix = "niri msg action spawn --";
+      main.terminal = "kitty";
+      colors = {
+        background = "313244ff";
+        text = "cdd6f4ff";
+        input = "ffffffff";
+        match = "cdd6f4ff";
+        selection = "89b4faff";
+        selection-text = "11111bff";
+        selection-match = "11111bff";
+        border = "89b4faff";
+      };
+    };
   };
 
   programs.kitty = {
