@@ -22,7 +22,8 @@ with lib;
         modules-center = [ "custom/clock" ];
         modules-right = [
           "tray"
-          "pulseaudio"
+          "pulseaudio#output"
+          "pulseaudio#input"
           "network"
           "cpu"
           "memory"
@@ -89,19 +90,28 @@ with lib;
           spacing = 18;
           # icon-size = 24; # Scaled up icon size
         };
-        "pulseaudio" = {
+        "pulseaudio#output" = {
           format = "{icon} {volume}%";
           format-bluetooth = "{icon} {volume}%";
-          format-muted = "";
+          format-muted = "󰝟 mute";
           format-icons = {
-            headphone = "";
             default = [
               ""
               ""
               ""
             ];
           };
-          on-click = "sleep 0.1 && pavucontrol";
+          tooltip = false;
+          on-click = "pavucontrol";
+          on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+        };
+        "pulseaudio#input" = {
+          format = "{format_source}";
+          format-source = " {volume}%";
+          format-source-muted = " mute";
+          tooltip = false;
+          on-click = "easyeffects";
+          on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
         };
         "battery" = {
           states = {
@@ -143,7 +153,8 @@ with lib;
         #mpris,
         #custom-clock,
         #tray,
-        #pulseaudio,
+        #pulseaudio.output,
+        #pulseaudio.input,
         #network,
         #cpu,
         #memory {
@@ -154,12 +165,22 @@ with lib;
           padding: 4px 8px 4px 8px;
         }
 
-        #mpris, #pulseaudio, #network, #cpu, #memory {
+        #mpris,
+        #pulseaudio.output,
+        #pulseaudio.input,
+        #network,
+        #cpu,
+        #memory {
           margin-left: 6px;
         }
 
         window#waybar {
           background: transparent;
+        }
+
+        #pulseaudio.output.muted,
+        #pulseaudio.input.source-muted {
+          background-color: #f38ba8;
         }
 
         tooltip {
