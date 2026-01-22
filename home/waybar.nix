@@ -3,12 +3,8 @@
   lib,
   ...
 }:
-let
-  betterTransition = "all 0.3s cubic-bezier(.55,-0.68,.48,1.682)";
-in
 with lib;
 {
-  # Configure & Theme Waybar
   programs.waybar = {
     enable = true;
     systemd.enable = true;
@@ -17,43 +13,65 @@ with lib;
       {
         layer = "top";
         position = "top";
-        modules-center = [ "hyprland/workspaces" ];
+        margin = "6 6 6 6";
+
         modules-left = [
-          "custom/startmenu"
-          "hyprland/window"
+          "niri/workspaces"
+          "mpris"
+        ];
+        modules-center = [ "custom/clock" ];
+        modules-right = [
+          "tray"
           "pulseaudio"
+          "network"
           "cpu"
           "memory"
-          "idle_inhibitor"
-        ];
-        modules-right = [
-          "custom/hyprbindings"
-          "custom/notification"
-          "custom/exit"
           "battery"
-          "tray"
-          "clock"
         ];
 
-        "clock" = {
-          format = '' {:L%H:%M}'';
-          tooltip = true;
-          tooltip-format = "<big>{:%A, %d %B %Y }</big>\n<tt><small>{calendar}</small></tt>";
+        "niri/workspaces" = {
+          format = "{icon}";
+          format-icons = {
+            active = "";
+            default = "";
+          };
         };
+
+        "mpris" = {
+          format = "{player_icon} {artist} - {title}";
+          format-paused = "{status_icon} <i>{artist} - {title}</i>";
+          max-length = 30;
+          player-icons = {
+            default = "";
+            spotify = "";
+          };
+          status-icons = {
+            paused = "";
+          };
+          ignored-players = [
+            "firefox"
+            "chromium"
+            "brave"
+          ];
+        };
+
+        "custom/clock" = {
+          exec = "date +'%d %b %-I:%M%p'";
+          interval = 1;
+        };
+
         "memory" = {
           interval = 5;
-          format = " {}%";
+          format = " {}%";
           tooltip = true;
         };
+
         "cpu" = {
           interval = 5;
-          format = " {usage:2}%";
+          format = " {usage:2}%";
           tooltip = true;
         };
-        "disk" = {
-          format = " {free}";
-          tooltip = true;
-        };
+
         "network" = {
           format-icons = [
             "󰤯"
@@ -62,29 +80,21 @@ with lib;
             "󰤥"
             "󰤨"
           ];
-          format-ethernet = " {bandwidthDownOctets}";
-          format-wifi = "{icon} {signalStrength}%";
+          format-ethernet = " {bandwidthDownBytes}";
+          format-wifi = "{icon} {bandwidthDownBytes}";
           format-disconnected = "󰤮";
           tooltip = false;
         };
         "tray" = {
-          spacing = 12;
-          icon-size = 22;
+          spacing = 18;
+          # icon-size = 24; # Scaled up icon size
         };
         "pulseaudio" = {
-          format = "{icon} {volume}% {format_source}";
-          format-bluetooth = "{volume}% {icon} {format_source}";
-          format-bluetooth-muted = " {icon} {format_source}";
-          format-muted = " {format_source}";
-          format-source = " {volume}%";
-          format-source-muted = "";
+          format = "{icon} {volume}%";
+          format-bluetooth = "{icon} {volume}%";
+          format-muted = "";
           format-icons = {
             headphone = "";
-            hands-free = "";
-            headset = "";
-            phone = "";
-            portable = "";
-            car = "";
             default = [
               ""
               ""
@@ -93,44 +103,6 @@ with lib;
           };
           on-click = "sleep 0.1 && pavucontrol";
         };
-        "custom/exit" = {
-          tooltip = false;
-          format = "";
-          on-click = "sleep 0.1 && wlogout";
-        };
-        "custom/startmenu" = {
-          tooltip = false;
-          format = "";
-          # exec = "rofi -show drun";
-          on-click = "sleep 0.1 && rofi-launcher";
-        };
-        "idle_inhibitor" = {
-          format = "{icon}";
-          format-icons = {
-            activated = "";
-            deactivated = "";
-          };
-          tooltip = "true";
-        };
-        "custom/notification" = {
-          tooltip = false;
-          format = "{icon} {}";
-          format-icons = {
-            notification = "<span foreground='red'><sup></sup></span>";
-            none = "";
-            dnd-notification = "<span foreground='red'><sup></sup></span>";
-            dnd-none = "";
-            inhibited-notification = "<span foreground='red'><sup></sup></span>";
-            inhibited-none = "";
-            dnd-inhibited-notification = "<span foreground='red'><sup></sup></span>";
-            dnd-inhibited-none = "";
-          };
-          return-type = "json";
-          exec-if = "which swaync-client";
-          exec = "swaync-client -swb";
-          on-click = "sleep 0.1 && task-waybar";
-          escape = true;
-        };
         "battery" = {
           states = {
             warning = 30;
@@ -138,7 +110,6 @@ with lib;
           };
           format = "{icon} {capacity}%";
           format-charging = "󰂄 {capacity}%";
-          format-plugged = "󱘖 {capacity}%";
           format-icons = [
             "󰁺"
             "󰁻"
@@ -151,7 +122,6 @@ with lib;
             "󰂂"
             "󰁹"
           ];
-          on-click = "";
           tooltip = false;
         };
       }
@@ -159,56 +129,57 @@ with lib;
     style = concatStrings [
       ''
         * {
-          font-family: JetBrainsMono Nerd Font Mono;
-          font-size: 16px;
-          border-radius: 0px;
           border: none;
+          border-radius: 0;
+          font-family: Roboto, JetBrainsMono Nerd Font Mono;
+          font-size: 14px;
+
           min-height: 0px;
+          margin: 0;
+          padding: 0;
         }
+
+        #workspaces,
+        #mpris,
+        #custom-clock,
+        #tray,
+        #pulseaudio,
+        #network,
+        #cpu,
+        #memory {
+          background: #1e1e2e;
+          border: 1px solid #313244;
+          border-radius: 8px;
+
+          padding: 4px 8px 4px 8px;
+        }
+
+        #mpris, #pulseaudio, #network, #cpu, #memory {
+          margin-left: 6px;
+        }
+
         window#waybar {
-          background: rgba(0,0,0,0);
+          background: transparent;
         }
+
         tooltip {
-          background: #282936;
-          border: 1px solid #ea51b2;
-          border-radius: 12px;
+          background: #1e1e2e;
+          border: 1px solid #313244;
+          border-radius: 6px;
         }
-        tooltip label {
-          color: #ea51b2;
-        }
-        #window, #pulseaudio, #cpu, #memory, #idle_inhibitor {
-          font-weight: bold;
-          margin: 4px 0px;
-          margin-left: 7px;
-          padding: 0px 18px;
-          background: #4d4f68;
+
+        #workspaces button {
+          padding: 0px 8px;
           color: #282936;
-          border-radius: 24px 10px 24px 10px;
         }
-        #custom-startmenu {
-          color: #ebff87;
-          background: #4d4f68;
-          font-size: 28px;
-          margin: 0px;
-          padding: 0px 30px 0px 15px;
-          border-radius: 0px 0px 40px 0px;
+        #workspaces button.active {
+          color: #89b4fa;
         }
-        #network, #battery,
-        #custom-notification, #tray, #custom-exit {
-          font-weight: bold;
-          background: #00f769;
-          color: #282936;
-          margin: 4px 0px;
-          margin-right: 7px;
-          border-radius: 10px 24px 10px 24px;
-          padding: 0px 18px;
+        #tray > .passive {
+          -gtk-icon-effect: dim;
         }
-        #clock {
-          color: #0D0E15;
-          background: linear-gradient(90deg, #b45bcf, #a1efe4);
-          margin: 0px;
-          padding: 0px 15px 0px 30px;
-          border-radius: 5px 5px 5px 5px;
+        #tray > .needs-attention {
+          -gtk-icon-effect: highlight;
         }
       ''
     ];
