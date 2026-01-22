@@ -7,7 +7,6 @@
   ];
   # hardware.alsa.enablePersistence = true;
   environment.systemPackages = with pkgs; [
-    easyeffects
     pavucontrol
   ];
 
@@ -51,14 +50,7 @@
       };
     };
   };
-
-  systemd.user.services.easyeffects = {
-    description = "EasyEffects daemon";
-    wantedBy = [ "graphical-session.target" ];
-    serviceConfig = {
-      ExecStart = "${pkgs.easyeffects}/bin/easyeffects --gapplication-service";
-      Restart = "on-failure";
-      RestartSec = 5;
-    };
+  user.homeConfig = {
+    services.easyeffects.enable = true;
   };
 }
