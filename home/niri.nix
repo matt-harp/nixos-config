@@ -17,6 +17,7 @@
     enable = true;
     settings = {
       input.mouse.accel-speed = 1.0;
+      gestures.hot-corners.enable = false;
       prefer-no-csd = true;
 
       clipboard.disable-primary = true; # disable mouse "primary" selection and paste with middle mouse
