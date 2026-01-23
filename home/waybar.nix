@@ -84,6 +84,7 @@ with lib;
           format-ethernet = " {bandwidthDownBytes}";
           format-wifi = "{icon} {bandwidthDownBytes}";
           format-disconnected = "󰤮";
+          interval = 3;
           tooltip = false;
         };
         "tray" = {
