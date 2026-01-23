@@ -19,6 +19,7 @@
       godot.enable = true;
       lutris.enable = true;
       ollama.enable = true;
+      prism.enable = true;
       qmk.enable = true;
       slack.enable = true;
       spotify.enable = true;
