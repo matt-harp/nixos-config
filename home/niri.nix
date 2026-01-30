@@ -22,6 +22,32 @@
 
       clipboard.disable-primary = true; # disable mouse "primary" selection and paste with middle mouse
 
+      layout = {
+        focus-ring = {
+          active = {
+            color = "#74c7ec"; # mocha sapphire
+          };
+          inactive = {
+            color = "#585b70"; # mocha surface2
+          };
+        };
+        shadow.enable = true;
+        struts.top = -8;
+        background-color = "#2A52BE";
+      };
+
+      window-rules = [
+        {
+          geometry-corner-radius = {
+            bottom-left = 6.0;
+            bottom-right = 6.0;
+            top-left = 6.0;
+            top-right = 6.0;
+          };
+          clip-to-geometry = true;
+        }
+      ];
+
       binds =
         with config.lib.niri.actions;
         let
@@ -175,6 +201,8 @@
     enable = true;
     themeFile = "Catppuccin-Mocha";
   };
+  
+  
 
   home.pointerCursor = {
     name = "phinger-cursors-light";

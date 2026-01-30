@@ -17,6 +17,7 @@
       discord.enable = true;
       firefox.enable = true;
       godot.enable = true;
+      jetbrains.enable = true;
       lutris.enable = true;
       ollama.enable = true;
       prism.enable = true;

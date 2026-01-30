@@ -6,7 +6,6 @@
     ./gnome.nix
     ./hardware.nix
     ./impermanence.nix
-    ./jetbrains.nix
     ./network.nix
     ./nh.nix
     ./pipewire.nix
