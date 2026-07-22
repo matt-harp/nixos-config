@@ -15,6 +15,9 @@ in
   config = lib.mkIf cfg.enable {
     user.persist.directories = [ ".local/share/PrismLauncher" ];
 
-    environment.systemPackages = [ pkgs.prismlauncher ];
+    environment.systemPackages = [
+      pkgs.prismlauncher
+      pkgs.openjdk25
+    ];
   };
 }

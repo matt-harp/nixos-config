@@ -2,11 +2,12 @@
 {
   programs.ssh = {
     enable = true;
+    enableDefaultConfig = false;
 
-    # use 1password for SSH keys
-    extraConfig = ''
-      Host *
-          IdentityAgent ~/.1password/agent.sock
-      '';
+    settings = {
+      "*" = {
+        identityAgent = "~/.1password/agent.sock";
+      };
+    };
   };
 }

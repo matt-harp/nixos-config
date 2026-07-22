@@ -1,5 +1,6 @@
 {
   inputs,
+  pkgs,
   config,
   lib,
   username,
@@ -58,39 +59,53 @@
     users.users.root.hashedPasswordFile = "/persist/passwords/root";
 
     boot.initrd = {
-      enable = true;
+      systemd.enable = true;
       supportedFilesystems = [ "btrfs" ];
-
-      postResumeCommands = lib.mkAfter ''
-        mkdir -p /mnt
-
-        # We first mount the btrfs root to /mnt
-        # so we can manipulate btrfs subvolumes.
-        mount -o subvol=/ /dev/disk/by-label/nixos /mnt
-
-        # Delete all subvolumes under /root (deepest first)
-        btrfs subvolume list -o /mnt/root |
-          awk '{print $NF}' |
-          tac |
-          while read subvolume; do
-            echo "Deleting /$subvolume..."
-            btrfs subvolume delete "/mnt/$subvolume"
-          done &&
-          echo "deleting /root subvolume..." &&
-          btrfs subvolume delete /mnt/root
-
-        echo "Restoring blank /root..."
-        btrfs subvolume snapshot /mnt/root-blank /mnt/root
-
-        # for whatever reason I can't figure out this needs to be remade.
-        # just dont put anything in /root for now
-        rmdir /mnt/root/root
-        mkdir /mnt/root/root
-
-        # Once we're done rolling back to a blank snapshot,
-        # we can unmount /mnt and continue on the boot process.
-        umount /mnt
-      '';
+  
+      systemd.services.rollback = {
+        description = "Rollback Btrfs root subvolume to a pristine state";
+        
+        # Essential ordering for systemd initrd
+        after = [ "initrd-root-device.target" ];
+        before = [ "sysroot.mount" ];
+        wants = [ "initrd-root-device.target" ];
+        wantedBy = [ "initrd.target" ];
+  
+        # Explicitly pull in necessary binaries for the sparse initrd environment
+        path = [ pkgs.coreutils pkgs.btrfs-progs pkgs.gawk pkgs.util-linux ];
+  
+        serviceConfig = {
+          Type = "oneshot";
+          RemainAfterExit = true;
+          Script = ''
+            mkdir -p /mnt
+  
+            # Mount the btrfs root to /mnt to manipulate subvolumes
+            mount -o subvol=/ /dev/disk/by-label/nixos /mnt
+  
+            # Delete all subvolumes under /root (deepest first)
+            btrfs subvolume list -o /mnt/root |
+              awk '{print $NF}' |
+              tac |
+              while read subvolume; do
+                echo "Deleting /$subvolume..."
+                btrfs subvolume delete "/mnt/$subvolume"
+              done &&
+              echo "deleting /root subvolume..." &&
+              btrfs subvolume delete /mnt/root
+  
+            echo "Restoring blank /root..."
+            btrfs subvolume snapshot /mnt/root-blank /mnt/root
+  
+            # Fix the nested root directory
+            rmdir /mnt/root/root
+            mkdir /mnt/root/root
+  
+            # Unmount and clean up
+            umount /mnt
+          '';
+        };
+      };
     };
 
     security.sudo.extraConfig = ''

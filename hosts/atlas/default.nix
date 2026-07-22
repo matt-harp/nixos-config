@@ -24,7 +24,7 @@
       qmk.enable = true;
       slack.enable = true;
       spotify.enable = true;
-      teams.enable = true;
+      vintagestory.enable = true;
       zed.enable = true;
       zoom.enable = false;
       zoxide.enable = true;

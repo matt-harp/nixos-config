@@ -16,6 +16,6 @@
     ];
 
     # prevent shutdown when plugged in
-    logind.lidSwitchExternalPower = "ignore";
+    logind.settings.Login.HandleLidSwitchExternalPower = "ignore";
   };
 }
