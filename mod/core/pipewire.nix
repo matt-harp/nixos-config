@@ -17,6 +17,12 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    extraConfig.pipewire."99-clock-rates" = {
+      "context.properties" = {
+        # Allow PipeWire to dynamically switch down to 44.1kHz when listening to music
+        "default.clock.allowed-rates" = [ 44100 48000 ];
+      };
+    };
     wireplumber = {
       enable = true;
       configPackages = [
