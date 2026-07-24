@@ -39,6 +39,7 @@ with lib;
         };
 
         "mpris" = {
+          player = "spotify"; # Restricts tracking to Spotify
           format = "{player_icon} {artist} - {title}";
           format-paused = "{status_icon} <i>{artist} - {title}</i>";
           max-length = 30;
